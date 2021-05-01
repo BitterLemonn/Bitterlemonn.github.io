@@ -430,7 +430,7 @@
 <p>　　以下是实现效果：</p>
 <center><a href="https://dd-static.jd.com/ddimg/jfs/t1/164410/32/21129/29446/608d8312Ec642b58d/8acb069ee0301e76.jpg" target="_blank" rel="noopener"><img src="https://dd-static.jd.com/ddimg/jfs/t1/164410/32/21129/29446/608d8312Ec642b58d/8acb069ee0301e76.jpg" alt="底部导航栏.jpg" style="zoom:20%;"></a></center>
 
-<p>​    首先我们需要在build中导入BottomNavigationView的支持</p>
+<h2 id="布局文件实现"><a href="#布局文件实现" class="headerlink" title="布局文件实现"></a>布局文件实现</h2><p>　　首先我们需要在build中导入BottomNavigationView的支持</p>
 <pre><code class="xml">implementation &#39;com.google.android.material:material:1.0.0&#39;
 </code></pre>
 <p>​        然后创建一个布局文件，中间加入BottomNavigationView组件，这里使用的布局方式是约束布局所以会出现app包中的语句</p>
@@ -502,7 +502,7 @@
         app:menu=&quot;@menu/navigation_elements&quot; /&gt;
 </code></pre>
 <p>其中<strong>app:itemTextColor</strong>是控制不同状态下菜单文件中的title字体的颜色，<strong>app:itemIconTint</strong>是控制不同状态下菜单文件中的图标的颜色。</p>
-<p>　　接下来就是页面转换的逻辑实现，首先包含BottomNavigationView的布局文件中需要有一个layout用于放置不同的fragment，例如布局文件代码如下, 我们通常使用FrameLayout来承载Fragment</p>
+<h2 id="Java逻辑实现"><a href="#Java逻辑实现" class="headerlink" title="Java逻辑实现"></a>Java逻辑实现</h2><p>　　接下来就是页面转换的逻辑实现，首先包含BottomNavigationView的布局文件中需要有一个layout用于放置不同的fragment，例如布局文件代码如下, 我们通常使用FrameLayout来承载Fragment</p>
 <pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
