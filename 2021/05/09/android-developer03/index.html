@@ -18,7 +18,7 @@
 	})();
   </script>
   
-  <title itemprop="name">Category: 技术 | 加绒的时间与精神之屋</title>
+  <title itemprop="name">TabLayout轻松实现页中页 | 加绒的时间与精神之屋</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -390,567 +390,316 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      TabLayout轻松实现页中页</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://BitterLemonn.github.io">
+            <img src="https://www.hualigs.cn/image/60198f9e2d601.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://BitterLemonn.github.io">BitterLemon</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-5-9<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">野生技术协会</h1>
-    <span class="cat-des">
-      <p>Geek – Only for Love</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="安卓前端研习——TabLayout轻松实现页中页"><a href="#安卓前端研习——TabLayout轻松实现页中页" class="headerlink" title="安卓前端研习——TabLayout轻松实现页中页"></a>安卓前端研习——TabLayout轻松实现页中页</h1><p>　　界面设计时常要实现页中页的轮播图或者标签页的效果，TabLayout可以帮助我们轻松实现，具体效果如下:</p>
+<center><a href="https://pic.iask.cn/fimg/436253647886.jpg" target="_blank" rel="noopener"><img src="https://pic.iask.cn/fimg/436253647886.jpg" alt="tablayout.gif"></a></center>
+
+<h2 id="布局文件设置"><a href="#布局文件设置" class="headerlink" title="布局文件设置"></a>布局文件设置</h2><p>　　首先我们要导入tablayout的依赖，在build中加入如下代码：</p>
+<pre><code class="xml">compile &#39;com.android.support:design:23.3.0&#39;
+</code></pre>
+<p>　　接着我们要创建一个新的布局文件，就使用一个简单的上面tablayout下面是viewpager的结构，代码如下:</p>
+<pre><code class="xml">    &lt;com.google.android.material.tabs.TabLayout
+        android:id=&quot;@+id/quest_tabLayout&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_marginTop=&quot;28dp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHeight_percent=&quot;0.0625&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@id/search_filed_quest&quot;
+        app:layout_constraintWidth_percent=&quot;1&quot; /&gt;
+    &lt;androidx.viewpager.widget.ViewPager
+        android:id=&quot;@+id/quest_container&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;0dp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHeight_percent=&quot;0.7360&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@id/quest_tabLayout&quot;
+        app:layout_constraintWidth_percent=&quot;1&quot; /&gt;
+</code></pre>
+<p>因为运用到了约束布局，所以定位是使用百分比来定位的，其他布局也可通过其他代码实现。</p>
+<h2 id="Java逻辑实现"><a href="#Java逻辑实现" class="headerlink" title="Java逻辑实现"></a>Java逻辑实现</h2><p>　　首先我们要为每一个tablayout页分配一个fragment，利用arraylist将他们组织在一起。示例仅使用两页所以只有两个fragment，具体代码如下：</p>
+<pre><code class="java">    public void OnSetList(){
+        fragments = new ArrayList&lt;&gt;();
+        fragments.add(new NewQuestFragment());
+        fragments.add(new SolvedQuestFragment());
+    }
+</code></pre>
+<p> 　　接着是为viewpager配置adapter，具体代码如下：</p>
+<pre><code class="java">    public void OnSetListener(){
+        quest_container.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles[position];
+            }
+        });
+    }
+</code></pre>
+<p>其中，函数<code>public Fragment getItem(int position)</code>返回的是fragment的下标用于获取每一个fragment页。函数<code>public int getCount()</code>返回的是fragment页的个数，所以直接调用ArrayList的size获取其大小。函数<code>public CharSequence getPageTitle(int position)</code>是为tablayout的每一个标签命名，具体的名字写在了一个titles数组中，具体代码如下:</p>
+<pre><code class="java">private String[] titles = {&quot;最新&quot;, &quot;已解决&quot;};
+</code></pre>
+<p>函数会为每一个tab标签调用数组中的字符串命名。</p>
+<p>　　因为tablayout与viewpager良好的兼容性，所以同步两者的操作不需要使用像viewpager与BottomNavigationView一样复杂，只需要一行代码便可以完成两者操作的同步。代码如下：</p>
+<pre><code class="java">    public void OnSetTabStyle(){
+        tabLayout.setupWithViewPager(quest_container);
+        tabLayout.getTabAt(0).select();
+    }
+</code></pre>
+<p>其中<code>tabLayout.getTabAt(0).select();</code>是设置tablayout显示的默认页（下标0即为第一页）</p>
+<p>　　<strong>全部完成后，代码如下：</strong></p>
+<pre><code class="java">package com.example.quanta;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+
+public class QuizPageActivity extends AppCompatActivity implements View.OnClickListener{
+    private TabLayout tabLayout;
+    private ViewPager quest_container;
+    private ArrayList&lt;Fragment&gt; fragments;
+    private String[] titles = {&quot;最新&quot;, &quot;已解决&quot;};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.quest_layout);
+        OnInitController();
+        OnSetList();
+        OnSetListener();
+        OnSetTabStyle();
+    }
+
+    public void OnInitController(){
+        ImageButton back_btn = findViewById(R.id.quest_back_btn);
+        back_btn.setOnClickListener(this);
+        tabLayout = findViewById(R.id.quest_tabLayout);
+        quest_container = findViewById(R.id.quest_container);
+    }
+
+    public void OnSetList(){
+        fragments = new ArrayList&lt;&gt;();
+        fragments.add(new NewQuestFragment());
+        fragments.add(new SolvedQuestFragment());
+    }
+
+    public void OnSetListener(){
+        quest_container.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles[position];
+            }
+        });
+    }
+
+    public void OnSetTabStyle(){
+        tabLayout.setupWithViewPager(quest_container);
+        tabLayout.getTabAt(0).select();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.quest_back_btn:
+                this.finish();
+                break;
+        }
+    }
+}
+</code></pre>
+<h2 id="设置好看的界面"><a href="#设置好看的界面" class="headerlink" title="设置好看的界面"></a>设置好看的界面</h2><p>　　除了默认的tablayout样式之外，我们还可以自定义实现各种更加好看的效果。</p>
+<pre><code class="xml">    &lt;com.google.android.material.tabs.TabLayout
+        android:id=&quot;@+id/quest_tabLayout&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_marginTop=&quot;28dp&quot;
+        app:tabRippleColor=&quot;@android:color/transparent&quot;
+        app:tabIndicatorColor=&quot;#6040FF&quot;
+        app:tabTextColor=&quot;#616161&quot;
+        app:tabSelectedTextColor=&quot;#6040FF&quot;
+        app:tabMode=&quot;fixed&quot;
+        app:tabIndicatorFullWidth=&quot;false&quot;
+        app:tabIndicatorHeight=&quot;5dp&quot;
+        app:tabIndicator=&quot;@drawable/indicator&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHeight_percent=&quot;0.0625&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@id/search_filed_quest&quot;
+        app:layout_constraintWidth_percent=&quot;1&quot; /&gt;
+</code></pre>
+<p>这段代码是在原来的基础上增加了自定义圆角指示下划线的效果。</p>
+<ul>
+<li><code>app:tabRippleColor=&quot;@android:color/transparent&quot;</code>将按键反馈调为透明，默认情况下是灰色的水波反馈</li>
+<li><code>app:tabIndicatorColor=&quot;#6040FF&quot;</code>设置了指示下划线的颜色</li>
+<li><code>app:tabTextColor=&quot;#616161&quot;</code>设置了默认情况下标签文本的颜色</li>
+<li><code>app:tabSelectedTextColor=&quot;#6040FF&quot;</code>设置了在选中情况下标签文本的颜色</li>
+<li><code>app:tabMode=&quot;fixed&quot;</code>设置了标签显示的效果，fixed是在标签数较少的情况下使用的，他会将标签平分屏幕的大小，如果有过多的标签数可以选择使用scrolled，即可以滑动的标签选择栏。</li>
+<li><code>app:tabIndicatorFullWidth=&quot;false&quot;</code>默认情况下下划线会填满整个按钮，将选项设为false下划线就只会与标签中内容的长度相等</li>
+<li><code>app:tabIndicatorHeight=&quot;5dp&quot;</code>设置了下划线的高度，也就是厚度</li>
+<li><code>app:tabIndicator=&quot;@drawable/indicator&quot;</code>这是主要设置了圆角下划线的部分</li>
+</ul>
+<p>我们需要在drawable文件夹下新建一个indicator.xml文件，并输入一下代码：</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item&gt;
+        &lt;shape&gt;
+            &lt;corners android:radius=&quot;5dp&quot;/&gt;
+        &lt;/shape&gt;
+    &lt;/item&gt;
+&lt;/layer-list&gt;
+</code></pre>
+<p>因为圆角的半径设置为了5dp，所以前面讲下划线的厚度也设置为了5dp使效果更加美观。</p>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://www.hualigs.cn/image/601989bf0ec61.jpg"></li>
+                <li class="wechat-code"><img src="https://www.hualigs.cn/image/601989bf10e06.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2021/05/03/android-developer02/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                结合viewpager的仿微信界面跳转设计</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/05/09/android-developer03/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/05/09/android-developer03/">
-    TabLayout轻松实现页中页</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-5-9</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/05/09/android-developer03/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/05/03/android-developer02/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/05/03/android-developer02/">
-    结合viewpager的仿微信界面跳转设计</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-5-3</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/05/03/android-developer02/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/05/02/android-developer01/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/05/02/android-developer01/">
-    利用底部导航以及碎片轻松实现不同页面的切换</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-5-2</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/05/02/android-developer01/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/12/mc-05/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/12/mc-05/">
-    MC开发者日志#05</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-12</div>
-    <p>
-    新年快乐，新年快乐！！！</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/12/mc-05/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/08/mc-04/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/08/mc-04/">
-    MC开发者日志#04</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-8</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/08/mc-04/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/07/mc-03/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/07/mc-03/">
-    MC开发者日志#03</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-7</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/07/mc-03/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/06/mc_02/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/06/mc_02/">
-    MC开发者日志#02</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-6</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/06/mc_02/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/04/mc_01/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/04/mc_01/">
-    MC开发者日志#01</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-4</div>
-    <p>
-    大家小年快乐！</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/04/mc_01/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "bWMHTgcIMb8DUNXf7AycqETh-gzGzoHsz",
+        appKey: "WY3j7NGFza5tatqze5Dwv4Cz",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="https://BitterLemonn.github.io" class="profile gravatar"><img src="https://www.hualigs.cn/image/60198f9e2d601.jpg" itemprop="image" alt="BitterLemon" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://BitterLemonn.github.io" itemprop="url" rel="author">BitterLemon</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>初めて会ったの日から　僕の心の全てを奪った</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/05/09/android-developer03/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/05/09/android-developer03/">
-    TabLayout轻松实现页中页</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-5-9</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/05/09/android-developer03/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/05/03/android-developer02/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/05/03/android-developer02/">
-    结合viewpager的仿微信界面跳转设计</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-5-3</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/05/03/android-developer02/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/05/02/android-developer01/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/05/02/android-developer01/">
-    利用底部导航以及碎片轻松实现不同页面的切换</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-5-2</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/05/02/android-developer01/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/12/mc-05/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/12/mc-05/">
-    MC开发者日志#05</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-12</div>
-    <p>
-    新年快乐，新年快乐！！！</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/12/mc-05/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/08/mc-04/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/08/mc-04/">
-    MC开发者日志#04</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-8</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/08/mc-04/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/07/mc-03/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/07/mc-03/">
-    MC开发者日志#03</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-7</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/07/mc-03/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/06/mc_02/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/06/mc_02/">
-    MC开发者日志#02</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-6</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/06/mc_02/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2021/02/04/mc_01/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://www.hualigs.cn/image/601a63bf70cc0.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2021/02/04/mc_01/">
-    MC开发者日志#01</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2021-2-4</div>
-    <p>
-    大家小年快乐！</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2021/02/04/mc_01/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
