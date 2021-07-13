@@ -394,19 +394,36 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
 
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://dd-static.jd.com/ddimg/jfs/t1/193861/13/827/150899/608d8135E9cb7f910/92563a2e39745782.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      使用全局变量简单保存重复使用的值</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://BitterLemonn.github.io">
+            <img src="https://www.hualigs.cn/image/60198f9e2d601.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://BitterLemonn.github.io">BitterLemon</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-7-13<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
       <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
         <div class="toc"></div>
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-        
-          <header class="entry-header">
-            <h1 class="entry-title">使用全局变量简单保存重复使用的值</h1>
-            <p class="entry-census">BitterLemon&nbsp;·&nbsp;2021-7-13&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
-
-            <hr>
-          </header>
         
         <div class="entry-content">
           <h1 id="使用全局变量简单保存重复使用的值"><a href="#使用全局变量简单保存重复使用的值" class="headerlink" title="使用全局变量简单保存重复使用的值"></a>使用全局变量简单保存重复使用的值</h1><p>　　  在做安卓项目的过程中总会有需要跨一个或者n个activity / fragment 等调用数据的情况，虽然通过传值来进行页面跳转可以解决问题，但是当需要长期使用变量或者跨多个界面调用的时候，传值调用就会显得十分麻烦以及臃肿。如何解决这样的问题呢，我们可以用一个简单的全局变量，让整个安卓项目可以随时访问随时获取相关数据。</p>
