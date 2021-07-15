@@ -403,55 +403,54 @@
 </ol>
 <h2 id="Java代码实现"><a href="#Java代码实现" class="headerlink" title="Java代码实现"></a>Java代码实现</h2><ul>
 <li><p><strong>第一步</strong>因为三级地址中的地址数据过多，所以在使用之前需要对控件进行初始化。只需要在界面常见完成后调用init方法即可。例如：</p>
-<p><code>`</code>java<br>public class AddNewAddressActivity extends Activity {</p>
-<pre><code>//申明对象
-CityPickerView mPicker=new CityPickerView();
+<pre><code class="java">public class AddNewAddressActivity extends Activity {
 
-@Override
-public void onCreate() {
-    super.onCreate();
+    //申明对象
+    CityPickerView mPicker=new CityPickerView();
 
-    //预先加载仿iOS滚轮实现的全部数据
-    mPicker.init(this);
-</code></pre></li>
-</ul>
-<pre><code>  }
-</code></pre><p>  }</p>
-<pre><code>
-- **第二步**建立地址选择器builder并配置相关属性。示例代码如下：
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-  ```java
-  CityConfig cityConfig = new CityConfig.Builder()
-                  .title(&quot;选择城市&quot;)//标题
-                  .titleTextSize(18)//标题文字大小
-                  .titleTextColor(&quot;#585858&quot;)//标题文字颜  色
-                  .titleBackgroundColor(&quot;#E9E9E9&quot;)//标题栏背景色
-                  .confirTextColor(&quot;#585858&quot;)//确认按钮文字颜色
-                  .confirmText(&quot;ok&quot;)//确认按钮文字
-                  .confirmTextSize(16)//确认按钮文字大小
-                  .cancelTextColor(&quot;#585858&quot;)//取消按钮文字颜色
-                  .cancelText(&quot;cancel&quot;)//取消按钮文字
-                  .cancelTextSize(16)//取消按钮文字大小
-                  .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)//显示类，只显示省份一级，显示省市两级还是显示省市区三级
-                  .showBackground(true)//是否显示半透明背景
-                  .visibleItemsCount(7)//显示item的数量
-                  .province(&quot;浙江省&quot;)//默认显示的省份
-                  .city(&quot;杭州市&quot;)//默认显示省份下面的城市
-                  .district(&quot;滨江区&quot;)//默认显示省市下面的区县数据
-                  .provinceCyclic(true)//省份滚轮是否可以循环滚动
-                  .cityCyclic(true)//城市滚轮是否可以循环滚动
-                  .districtCyclic(true)//区县滚轮是否循环滚动
-                  .setCustomItemLayout(R.layout.item_city)//自定义item的布局
-                  .setCustomItemTextViewId(R.id.item_city_name_tv)//自定义item布局里面的textViewid
-                  .drawShadows(false)//滚轮不显示模糊效果
-                  .setLineColor(&quot;#03a9f4&quot;)//中间横线的颜色
-                  .setLineHeigh(5)//中间横线的高度
-                  .setShowGAT(true)//是否显示港澳台数据，默认不显示
-                  .build();
+        //预先加载仿iOS滚轮实现的全部数据
+        mPicker.init(this);
+    }
+}
+</code></pre>
+</li>
+<li><p><strong>第二步</strong>建立地址选择器builder并配置相关属性。示例代码如下：</p>
+<pre><code class="java">CityConfig cityConfig = new CityConfig.Builder()
+                .title(&quot;选择城市&quot;)//标题
+                .titleTextSize(18)//标题文字大小
+                .titleTextColor(&quot;#585858&quot;)//标题文字颜  色
+                .titleBackgroundColor(&quot;#E9E9E9&quot;)//标题栏背景色
+                .confirTextColor(&quot;#585858&quot;)//确认按钮文字颜色
+                .confirmText(&quot;ok&quot;)//确认按钮文字
+                .confirmTextSize(16)//确认按钮文字大小
+                .cancelTextColor(&quot;#585858&quot;)//取消按钮文字颜色
+                .cancelText(&quot;cancel&quot;)//取消按钮文字
+                .cancelTextSize(16)//取消按钮文字大小
+                .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)//显示类，只显示省份一级，显示省市两级还是显示省市区三级
+                .showBackground(true)//是否显示半透明背景
+                .visibleItemsCount(7)//显示item的数量
+                .province(&quot;浙江省&quot;)//默认显示的省份
+                .city(&quot;杭州市&quot;)//默认显示省份下面的城市
+                .district(&quot;滨江区&quot;)//默认显示省市下面的区县数据
+                .provinceCyclic(true)//省份滚轮是否可以循环滚动
+                .cityCyclic(true)//城市滚轮是否可以循环滚动
+                .districtCyclic(true)//区县滚轮是否循环滚动
+                .setCustomItemLayout(R.layout.item_city)//自定义item的布局
+                .setCustomItemTextViewId(R.id.item_city_name_tv)//自定义item布局里面的textViewid
+                .drawShadows(false)//滚轮不显示模糊效果
+                .setLineColor(&quot;#03a9f4&quot;)//中间横线的颜色
+                .setLineHeigh(5)//中间横线的高度
+                .setShowGAT(true)//是否显示港澳台数据，默认不显示
+                .build();
 
-  //设置自定义的属性配置
-  CityPickerView.getInstance().setConfig(cityConfig);
-</code></pre><ul>
+//设置自定义的属性配置
+CityPickerView.getInstance().setConfig(cityConfig);
+</code></pre>
+</li>
 <li><p><strong>第三步</strong>重写监听器方法。重写用户点击选择地址后的监听器实现其他功能的连接，示例代码如下：</p>
 <pre><code class="java">//监听选择点击事件及返回结果
 mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
