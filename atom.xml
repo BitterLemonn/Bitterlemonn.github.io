@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/"/>
-  <updated>2021-07-15T16:09:18.785Z</updated>
+  <updated>2021-07-23T08:50:26.466Z</updated>
   <id>https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>自定义逻辑实现折叠TextView</title>
+    <link href="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/2021/07/23/android-developer10/"/>
+    <id>https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/2021/07/23/android-developer10/</id>
+    <published>2021-07-23T08:16:17.000Z</published>
+    <updated>2021-07-23T08:50:26.466Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;自定义逻辑实现可折叠TextView&quot;&gt;&lt;a href=&quot;#自定义逻辑实现可折叠TextView&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="安卓" scheme="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/tags/%E5%AE%89%E5%8D%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title>TagFlowLayout帮你快速完成Tag页</title>
     <link href="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/2021/07/15/android-developer09/"/>
     <id>https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/2021/07/15/android-developer09/</id>
     <published>2021-07-15T14:52:11.000Z</published>
-    <updated>2021-07-15T16:09:18.785Z</updated>
+    <updated>2021-07-17T13:56:32.004Z</updated>
     
     <summary type="html">
     
