@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/"/>
-  <updated>2021-07-23T09:13:33.067Z</updated>
+  <updated>2021-07-26T14:35:02.318Z</updated>
   <id>https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>多重结构嵌套实现可伸缩头部界面</title>
+    <link href="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/2021/07/26/android-developer11/"/>
+    <id>https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/2021/07/26/android-developer11/</id>
+    <published>2021-07-26T14:32:10.000Z</published>
+    <updated>2021-07-26T14:35:02.318Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;多重结构嵌套实现可伸缩头部界面&quot;&gt;&lt;a href=&quot;#多重结构嵌套实现可伸缩头部界面&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="安卓" scheme="https://coding-pages-bucket-3520997-8318888-12376-490888-1257815289.cos-website.ap-guangzhou.myqcloud.com/tags/%E5%AE%89%E5%8D%93/"/>
+    
+  </entry>
   
   <entry>
     <title>自定义逻辑实现折叠TextView</title>
